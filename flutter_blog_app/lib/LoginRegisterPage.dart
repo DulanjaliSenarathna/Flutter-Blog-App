@@ -8,18 +8,65 @@ class LoginRegisterPage extends StatefulWidget
   }
 }
 
+enum FormType
+{
+  login,
+  register
+}
+
 class _LoginRegisterState extends State<LoginRegisterPage>
 {
 
+  final formKey = new GlobalKey <FormState>();
+  FormType _formType = FormType.login;
+  String _email = "";
+  String _password = "";
+
   //Methods
 
-  void validateAndSave()
+  bool validateAndSave()
   {
 
+    final form = formKey.currentState;
+
+    if(form.validate())
+      {
+        form.save();
+        return true;
+
+      }
+      else {
+      return false;
+    }
   }
 
   void moveToRegister()
   {
+
+    formKey.currentState.reset();
+
+    setState(()
+
+    {
+        _formType = FormType.register;
+    }
+
+    );
+
+  }
+
+  void moveToLogin()
+  {
+
+    formKey.currentState.reset();
+
+    setState(()
+
+    {
+      _formType = FormType.login;
+    }
+
+    );
 
   }
 
@@ -29,20 +76,27 @@ class _LoginRegisterState extends State<LoginRegisterPage>
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Flutter Blog App"),
-        
+
       ),
 
       body: new Container(
 
         margin: EdgeInsets.all(15.0),
 
+        child:new Form(
+          key: formKey,
+
         child: new Column(
+
+
 
           crossAxisAlignment: CrossAxisAlignment.stretch,
 
           children: createInputs() + createButtons(),
 
         ),
+
+    ),
 
       ),
 
@@ -59,12 +113,34 @@ class _LoginRegisterState extends State<LoginRegisterPage>
 
         new TextFormField(
           decoration: new InputDecoration(labelText: 'Email'),
+
+          validator: (value)
+          {
+            return value.isEmpty ? 'Email is required' : null;
+          },
+
+          onSaved: (value)
+          {
+            return _email = value;
+          },
+
         ),
 
         SizedBox(height: 10.0,),
 
         new TextFormField(
           decoration: new InputDecoration(labelText: 'Password'),
+          obscureText: true,
+
+          validator: (value)
+          {
+            return value.isEmpty ? 'Password is required' : null;
+          },
+
+          onSaved: (value)
+          {
+            return _password = value;
+          },
         ),
 
         SizedBox(height: 20.0,),
@@ -89,25 +165,51 @@ class _LoginRegisterState extends State<LoginRegisterPage>
 
   List <Widget> createButtons()
   {
-    return
-      [
-        new RaisedButton(
-          child: new Text("Login", style: new TextStyle(fontSize:20.0 ),),
-          textColor: Colors.white,
-          color: Colors.pink,
+    if(_formType == FormType.login)
+      {
+        return
+          [
+            new RaisedButton(
+              child: new Text("Login", style: new TextStyle(fontSize:20.0 ),),
+              textColor: Colors.white,
+              color: Colors.pink,
 
-          onPressed: validateAndSave,
-        ),
+              onPressed: validateAndSave,
+            ),
 
-        new FlatButton(
-          child: new Text("Not have an Account? Create Account", style: new TextStyle(fontSize:14.0 ),),
-          textColor: Colors.pink,
+            new FlatButton(
+              child: new Text("Not have an Account? Create Account", style: new TextStyle(fontSize:14.0 ),),
+              textColor: Colors.red,
 
-          onPressed: moveToRegister,
+              onPressed: moveToRegister,
 
-        ),
+            ),
 
-      ];
+          ];
+      }
+
+      else
+        {
+          return
+            [
+              new RaisedButton(
+                child: new Text("Create Account", style: new TextStyle(fontSize:20.0 ),),
+                textColor: Colors.white,
+                color: Colors.pink,
+
+                onPressed: validateAndSave,
+              ),
+
+              new FlatButton(
+                child: new Text("Already have an Account? Login", style: new TextStyle(fontSize:14.0 ),),
+                textColor: Colors.red,
+
+                onPressed: moveToLogin,
+
+              ),
+
+            ];
+        }
   }
 
 }
