@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage>
       appBar: new AppBar(
 
         title: new Text("Home"),
+        centerTitle: true,
       ),
 
       body: new Container(

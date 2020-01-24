@@ -76,6 +76,7 @@ class _LoginRegisterState extends State<LoginRegisterPage>
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Flutter Blog App"),
+        centerTitle: true,
 
       ),
 

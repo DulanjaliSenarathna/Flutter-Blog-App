@@ -13,6 +13,7 @@ class BlogApp extends StatelessWidget
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: "Blog App",
+      
 
       theme: new ThemeData(
         primarySwatch: Colors.pink,
