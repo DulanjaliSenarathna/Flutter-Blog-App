@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "354297151778",
+    "firebase_url": "https://iosandandroidblogapp-55c62.firebaseio.com",
+    "project_id": "iosandandroidblogapp-55c62",
+    "storage_bucket": "iosandandroidblogapp-55c62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354297151778:android:5808bfd60665245001257b",
+        "android_client_info": {
+          "package_name": "com.dulanjali.flutter_blog_ap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354297151778-fbmn2gphecd2k7c99tacscg8t78qdsg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxfkaXuwoSkIHP0t5DVbfdWbfW4Z7uBMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354297151778-fbmn2gphecd2k7c99tacscg8t78qdsg1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
