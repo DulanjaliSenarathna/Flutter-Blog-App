@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
+import 'Authentication.dart';
 
-class LoginRegisterPage extends StatefulWidget
-{
+class LoginRegisterPage extends StatefulWidget {
+
+  LoginRegisterPage({
+
+    this.auth,
+    this.onSignedIn,
+
+  });
+
+  final AuthImplementation auth;
+  final VoidCallback onSignedIn;
+
   State<StatefulWidget> createState()
   {
     return _LoginRegisterState();
   }
+
+
 }
 
 enum FormType
@@ -38,6 +51,34 @@ class _LoginRegisterState extends State<LoginRegisterPage>
       else {
       return false;
     }
+  }
+
+  void validateAndSubmit() async
+  {
+      if(validateAndSave())
+        {
+          try
+              {
+                if(_formType == FormType.login)
+                  {
+                      String userId = await widget.auth.SignIn(_email, _password);
+                      print("Login userId = " + userId);
+                  }
+                  else
+                    {
+                      String userId = await widget.auth.SignUp(_email, _password);
+                      print("Register userId = " + userId);
+                    }
+
+                    widget.onSignedIn();
+
+              }
+
+              catch(e)
+    {
+      print("Error =" +e.toString());
+    }
+        }
   }
 
   void moveToRegister()
@@ -175,7 +216,7 @@ class _LoginRegisterState extends State<LoginRegisterPage>
               textColor: Colors.white,
               color: Colors.pink,
 
-              onPressed: validateAndSave,
+              onPressed: validateAndSubmit,
             ),
 
             new FlatButton(
@@ -198,7 +239,7 @@ class _LoginRegisterState extends State<LoginRegisterPage>
                 textColor: Colors.white,
                 color: Colors.pink,
 
-                onPressed: validateAndSave,
+                onPressed: validateAndSubmit,
               ),
 
               new FlatButton(
