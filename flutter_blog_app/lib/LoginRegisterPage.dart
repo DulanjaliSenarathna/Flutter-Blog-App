@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Authentication.dart';
+import 'DialogBox.dart';
 
 class LoginRegisterPage extends StatefulWidget {
 
@@ -29,6 +30,7 @@ enum FormType
 
 class _LoginRegisterState extends State<LoginRegisterPage>
 {
+  DialogBox dialogBox = new DialogBox();
 
   final formKey = new GlobalKey <FormState>();
   FormType _formType = FormType.login;
@@ -62,11 +64,13 @@ class _LoginRegisterState extends State<LoginRegisterPage>
                 if(_formType == FormType.login)
                   {
                       String userId = await widget.auth.SignIn(_email, _password);
+                      dialogBox.information(context, "Congradulations","your are logged in successfully");
                       print("Login userId = " + userId);
                   }
                   else
                     {
                       String userId = await widget.auth.SignUp(_email, _password);
+                      dialogBox.information(context, "Congradulations","your account has been created successfully");
                       print("Register userId = " + userId);
                     }
 
@@ -76,6 +80,7 @@ class _LoginRegisterState extends State<LoginRegisterPage>
 
               catch(e)
     {
+      dialogBox.information(context, "Error", e.toString());
       print("Error =" +e.toString());
     }
         }
